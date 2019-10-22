@@ -16,13 +16,17 @@ nat模式的缺点：
 
 无论是请求数据还是响应数据，都会经过Director服务器处理，这就对Director服务器的配置要求非常之高。而且网络流量都集中在Director身上，造成网络资源的不合理利用。
 
-**两台Real Server的网关必须指向Director的Director IP**
+**两台Real Server的网关必须指向Director的Director IP**（用一个网卡时，网关需指向虚拟ip）
+
+**最后的重点：一定要记得打开负载均衡调度机器上的路由转发功能！！！！**
 
 # DR模式
 
 ![](2.png)
 
 和nat模式不同的是，DR模式当中只有请求会经过Director，所有对客户端的响应由Real Server自己返回。好处是减轻Director的负载。
+
+**DR模式只修改包的mac 地址，不会修改IP及上层的内容**
 
 在这个模式当中，Director的工作流程如下：
 

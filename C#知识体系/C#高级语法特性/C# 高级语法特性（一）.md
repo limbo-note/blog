@@ -202,3 +202,36 @@
 - 自定义 Attribute 通常需要与反射配合
 
   关于反射，会在下一篇专栏中集中总结C#中与反射有关的值得关注的知识点。
+
+### 反射
+
+​	Java中也有反射机制，和Java语言不同，C#中的反射并不是语言层面上的，而是.Net进行提供的。
+
+**Type对象**
+
+​	可以通过typeof(类名)这个方法获取一个type对象，进而访问type对象的程序集、模块、类名等，例如：
+
+    var type = typeof(ClassA);
+    Debug.Log(type.Assembly);
+    Debug.Log(type.Module);
+    Debug.Log(type.Name);
+
+​	或者通过`object.GetType()`或者到Type对象，根据Type对象获得到的信息类别大致可将Type对象的方法分为：
+
+-   类信息查询方法：各种与类相关的名字，如：
+    -   `type.FullName`
+    -   `type.Namespace`
+-   类结构查询方法：获取父类、方法、成员变量等，如：
+    -   `type.BaseType`
+    -   `MethodInfo info = type.GetMethod()`（包括父类方法和private方法）
+    -   `FieldInfo info = type.GetField()`
+    -   `PropertyInfo info = type.GetPropertie()`
+    -   `MemberInfo info = type.GetMember()`
+-   检测方法：判断是否为某一个事物，如：
+    -   `type.IsClass`
+    -   `type.IsAbstract`
+    -   `type.IsValueType`
+
+​	结合BindingFlags对type对象方法进行限制
+
+C#中的反射用法几乎和Java中的反射机制一样，反射可以应用的场景很多：依赖注入容器、代码生成、序列化、热更新等。
